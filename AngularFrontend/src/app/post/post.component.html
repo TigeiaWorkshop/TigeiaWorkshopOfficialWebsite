@@ -1,0 +1,106 @@
+<app-navigation></app-navigation>
+
+<div class="container">
+    <div id="pt">
+        <a [routerLink]="['/']">论坛首页</a>
+        <em>›</em><a>{{getFiledCategoryName()}}</a><em>›</em>
+        <a href="forum?id={{this.PostData.field.id}}">{{this.PostData.field.name}}</a>
+    </div>
+    <div id="left_container">
+        <div class="cbm_box">
+            <div class="crumb">
+                <span class="xg1">查看: </span>
+                <span class="xi1">126</span>
+                <span class="xg1"> | 回复: </span>
+                <span class="xi1">0</span>
+                <div class="y"><a class="acpost">本版发帖</a><a class="acpost">回复</a></div>
+            </div>
+            <h1>{{PostData.title}}</h1>
+            <table>
+                <tbody>
+                <tr>
+                    <a href=""><img src=""/></a>
+                    <a href="">{{PostData.author.name}}</a>
+                    <i class="acgi_i">腐竹</i>
+                    <div [innerHTML]="PostData.content"></div>
+                    <em>发表于 {{PostData.createdAt}}</em>
+                </tr>
+                <tr>
+                    <a href="" title="收藏本帖">
+                        <i><img alt="收藏" src="/assets/image/icons/fav.gif"/>收藏</i>
+                    </a>
+                    <a href="" title="转播求扩散">
+                        <i><img alt="转播" src="/assets/image/icons/rt.png"/>转播</i>
+                    </a>
+                    <a href="" title="分享推精华">
+                        <i><img alt="分享" src="/assets/image/icons/oshr.png"/>分享</i>
+                    </a>
+                    <a href="" title="淘好帖进专辑">
+                        <i><img alt="分享" src="/assets/image/icons/collection.png"/>淘帖</i>
+                    </a>
+                </tr>
+                <tr>
+                    <a href="">回复</a>
+                    <a href="">编辑</a>
+                    <a href="">推送</a>
+                    <a href="">使用道具</a>
+                    <a href=""><img src=""/>变色卡</a>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngFor="let comment of PostData.comments" class="cbm_box">
+            <div [innerHTML]="comment.content"></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <a class="acpost">返回列表</a>
+            <a class="acpost" style="float: right;">回到顶部</a>
+        </div>
+        <form (submit)="onSubmit()" class="cbm_box" id="input_form">
+            <p *ngIf="this.ErrorMessage.content!=null" class="element_in_input">{{this.ErrorMessage.content}}</p>
+            <angular-editor [(ngModel)]="this.NewReplyData.content" [config]="config" name="content"></angular-editor>
+            <button class="element_in_input" id="submit_button" type="submit">
+                <strong>发表回复</strong>
+            </button>
+        </form>
+    </div>
+
+    <div id="right_container">
+        <div class="sd_mkes">
+            <div>
+                <i class="acgi_i">腐竹</i>
+                <a href=""><img src=""/></a>
+                <p><a href="">yoshino_lin</a></p>
+            </div>
+            <div>
+                <a href="">
+                    <div class="a">9278</div>
+                    <div class="b">积分</div>
+                </a>
+                <a href="">
+                    <div class="a">11</div>
+                    <div class="b">主题</div>
+                </a>
+                <a href="">
+                    <div class="a">0</div>
+                    <div class="b">粉丝</div>
+                </a>
+            </div>
+            <div>
+                <a>收听</a>
+                <a>站内</a>
+                <a>加友</a>
+            </div>
+        </div>
+        <div class="sd_mkes">
+            <h2><i></i>楼主图文帖</h2>
+            <em class="y" title="查看更多yoshino_lin的帖子.."><a href="">更多 ..</a></em>
+            <ul class="cl">
+                <li>
+                    <a href=""><img alt="" src=""/></a>
+                    <a href=""><h3>【绝对萌领域】万圣节活动介绍</h3></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<app-navigation></app-navigation>
+
+<div class="container">
+    <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow">
+        <div id="avatar">
+            <img alt="{{UserData.id}}" class="rounded" src="{{UserData.avatar}}"/>
+            <button (click)="onClick()" *ngIf="UserData.id == this.CurrentUserData.id">
+                <i class="bi bi-capslock"></i><strong>上传头像</strong>
+                <input #fileUpload accept=".png,.jpg,.gif" id="fileUpload" name="fileUpload" style="display: none;"
+                       type="file"/>
+            </button>
+        </div>
+        <div class="lh-1">
+            <h1 class="h6 mb-0 text-white lh-1">{{UserData.name}} (UID: {{UserData.id}})</h1>
+            <small>{{UserData.email}}</small>
+        </div>
+    </div>
+    <div class="my-3 p-3 bg-body rounded shadow">
+        <h6 class="border-bottom pb-2 mb-0">用户信息</h6>
+        <div class="d-flex text-muted pt-3">
+            <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-gray-dark">生日</strong>
+                {{UserData.birthday}}
+            </p>
+            <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-gray-dark">用户组</strong>
+                {{this.UserGroupName}}
+            </p>
+        </div>
+        <div class="d-flex text-muted pt-3">
+            <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-gray-dark">注册时间</strong>
+                {{this.UserData.createdAt}}
+            </p>
+            <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-gray-dark">已注册天数</strong>
+                {{this.UserDaysBeingMember}}
+            </p>
+            <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-gray-dark">最后访问</strong>
+                {{this.UserData.updatedAt}}
+            </p>
+        </div>
+        <div class="d-flex text-muted pt-3">
+            <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-gray-dark">注册 IP</strong>
+                {{this.UserData.registerIp}}
+            </p>
+            <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-gray-dark">上次访问 IP</strong>
+                {{this.UserData.loginIp}}
+            </p>
+            <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-gray-dark">上次发表时间</strong>
+                {{this.UserData.updatedAt}}
+            </p>
+        </div>
+        <small *ngIf="UserData.id == this.CurrentUserData.id" class="d-block text-end mt-3"><a
+                href="#">编辑信息</a></small>
+    </div>
+    <div class="my-3 p-3 bg-body rounded shadow">
+        <h6 class="border-bottom pb-2 mb-0">统计信息</h6>
+        <div class="d-flex text-muted pt-3">
+            <div class="pb-3 mb-0 small lh-sm w-100">
+                <i class="bi bi-award"></i>
+                <div style="display: inline-block;">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-gray-dark">经验</strong>
+                    </div>
+                    <span class="d-block">{{UserData.exp}}</span>
+                </div>
+            </div>
+            <div class="pb-3 mb-0 small lh-sm w-100">
+                <i class="bi bi-gem"></i>
+                <div style="display: inline-block;">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-gray-dark">金钱</strong>
+                    </div>
+                    <span class="d-block">{{UserData.money}}</span>
+                </div>
+            </div>
+            <div class="pb-3 mb-0 small lh-sm w-100">
+                <i class="bi bi-bookmark-star"></i>
+                <div style="display: inline-block;">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-gray-dark">积分</strong>
+                    </div>
+                    <span class="d-block">{{UserData.credits}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

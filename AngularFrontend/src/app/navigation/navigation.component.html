@@ -1,0 +1,38 @@
+<nav aria-label="Main navigation" class="navbar navbar-expand-lg fixed-top navbar-dark"
+     style="background-color: #61cab7;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">缇吉娅工坊</a>
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li *ngFor="let nav_item of nav_items; index as i" class="nav-item">
+                    <a *ngIf="selected_section==nav_item.id" aria-current="page" class="nav-link active"
+                       href="/{{nav_item.target}}">
+                        {{nav_item.name}}
+                    </a>
+                    <a *ngIf="selected_section!=nav_item.id" class="nav-link" href="/{{nav_item.target}}">{{nav_item.name}}</a>
+                </li>
+            </ul>
+            <div *ngIf="UserData.id==null" class="login">
+                <a [routerLink]="['/login']" title="登录"><strong>登录</strong></a>
+                <strong> | </strong>
+                <a [routerLink]="['/registration']" title="注册"><strong>注册</strong></a>
+                <a (click)="logOff()" [routerLink]="['/']" hidden><strong>注销</strong></a>
+            </div>
+            <ul *ngIf="UserData.id!=null" class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+                        <img alt="" class="rounded-circle me-2" height="32" src="{{UserData.profile_picture}}" width="32"/>
+                        <strong>{{UserData.name}}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu">
+                        <li><a class="dropdown-item" href="/profile?id={{UserData.id}}">个人主页</a></li>
+                        <li>
+                            <hr class="dropdown-divider"/>
+                        </li>
+                        <li><a (click)="logOff()" class="dropdown-item" href="">注销</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,42 @@
+<div id="main" style="width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 100;">
+    <div style="padding-top: 150px; padding-bottom: 200px; width: auto;">
+        <div class="lg_main">
+            <form (submit)="onSubmit()" class="input_group">
+                <p class="input_title">用户名</p>
+                <p *ngIf="ErrorMessage['name']" class="warning_messages">{{ErrorMessage['name']}}</p>
+                <input [(ngModel)]="RegistrationData['name']" class="textinput_l" name="name" type="text"/>
+                <p class="input_title">邮箱</p>
+                <p *ngIf="ErrorMessage['email']" class="warning_messages">{{ErrorMessage['email']}}</p>
+                <input [(ngModel)]="RegistrationData['email']" class="textinput_l" name="email" type="text"/>
+                <p class="input_title">生日</p>
+                <p *ngIf="ErrorMessage['birthday']" class="warning_messages">{{ErrorMessage['birthday']}}</p>
+                <input [(ngModel)]="RegistrationData['birthday']" class="textinput_l" name="birthday" type="date"/>
+                <p class="input_title">密码</p>
+                <p *ngIf="ErrorMessage['password']" class="warning_messages">{{ErrorMessage['password']}}</p>
+                <input [(ngModel)]="RegistrationData['password']" autocomplete="new-password" class="textinput_l" name="password" type="password"/>
+                <p class="input_title">确认密码</p>
+                <p *ngIf="ErrorMessage['password_confirm']" class="warning_messages">{{ErrorMessage['password_confirm']}}</p>
+                <input [(ngModel)]="RegistrationData['password_confirm']" autocomplete="new-password" class="textinput_l"
+                       name="password_confirm"
+                       type="password"/>
+                <p class="input_title">验证码</p>
+                <input [(ngModel)]="RegistrationData['captcha']" class="textinput_l" name="captcha" style="width: 120px;"
+                       type="text"/>
+                <button onclick="dj()">换一个</button>
+                <div class="cl">
+                    <span class="y">
+                        <a>已有帐号？</a>
+                        <a [routerLink]="['/login']" title="登录">登录</a>
+                        <a> 或 </a>
+                        <a [routerLink]="['/forget']" title="找回密码">找回密码</a>
+                    </span>
+                </div>
+                <button class="lg_post" type="submit"><strong>注册</strong></button>
+            </form>
+        </div>
+    </div>
+    <div class="cl">
+        <a>缇吉娅工坊</a>
+        <a>用心创造世界</a>
+    </div>
+</div>

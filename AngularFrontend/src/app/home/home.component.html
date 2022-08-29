@@ -1,0 +1,107 @@
+<app-navigation [selected_section]='"home"'></app-navigation>
+
+<div class="carousel slide" data-bs-ride="carousel" id="myCarousel">
+    <div class="carousel-indicators">
+        <button *ngFor="let _ of FrontCovers; index as i" [attr.aria-label]="'Slide '+i" [attr.data-bs-slide-to]="i"
+                aria-current="true" class="{{ifActive(i)}}" data-bs-target="#myCarousel"
+                type="button"></button>
+    </div>
+    <div class="carousel-inner">
+        <div *ngFor="let eachPost of FrontCovers; index as i" class="carousel-item {{ifActive(i)}}">
+            <svg aria-hidden="true" class="bd-placeholder-img" focusable="false" height="100%"
+                 preserveAspectRatio="xMidYMid slice"
+                 width="100%" xmlns="http://www.w3.org/2000/svg">
+                <rect fill="#777" height="100%" width="100%"/>
+            </svg>
+            <div class="container">
+                <div class="{{getBoxTextPos(i)}}">
+                    <h1>{{eachPost.title}}</h1>
+                    <p>{{eachPost.content}}</p>
+                    <p><a class="btn btn-lg btn-primary" href="/post?id={{eachPost.id}}">{{getBoxButtonText(i)}}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#myCarousel" type="button">
+        <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#myCarousel" type="button">
+        <span aria-hidden="true" class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<div class="container marketing">
+    <div class="cbm_box">
+        <div class="bm_h"><h4>官方发布区</h4></div>
+        <div *ngFor="let eachPostField of PostFields.slice(0,4)" class="post_filed_box">
+            <a href="forum?id={{eachPostField.id}}"><img alt="{{eachPostField.name}}" src="{{eachPostField.image}}"/></a>
+            <dl>
+                <dt><a href="forum?id={{eachPostField.id}}">{{eachPostField.name}}</a></dt>
+                <dd><em>主题: {{eachPostField.count}}</em>, <em>帖数: {{eachPostField.count}}</em></dd>
+                <dd *ngIf="eachPostField.count>0">
+                    <a href="/post?id={{eachPostField.latestPost.id}}"
+                       title="{{eachPostField.latestPost.title}}">{{eachPostField.latestPost.title}}</a><br/>
+                    <a href="/profile?id={{eachPostField.latestPost.author.id}}">{{eachPostField.latestPost.author.name}}</a>
+                    <em>&nbsp;&nbsp;&nbsp;&nbsp;{{eachPostField.latestPost.createdAt}}</em>
+                </dd>
+                <dd *ngIf="eachPostField.count<=0">从未</dd>
+            </dl>
+        </div>
+    </div>
+    <hr class="featurette-divider"/>
+    <div class="cbm_box">
+        <div class="bm_h"><h4>玩家讨论区</h4></div>
+        <div>
+            <div *ngFor="let eachPostField of PostFields.slice(4,8)" class="post_filed_box">
+                <a href="forum?id={{eachPostField.id}}"><img alt="{{eachPostField.name}}" src="{{eachPostField.image}}"/></a>
+                <dl>
+                    <dt><a href="forum?id={{eachPostField.id}}">{{eachPostField.name}}</a></dt>
+                    <dd><em>主题: {{eachPostField.count}}</em>, <em>帖数: {{eachPostField.count}}</em></dd>
+                    <dd *ngIf="eachPostField.count>0">
+                        <a href="/post?id={{eachPostField.latestPost.id}}"
+                           title="{{eachPostField.latestPost.title}}">{{eachPostField.latestPost.title}}</a><br/>
+                        <a href="/profile?id={{eachPostField.latestPost.author.id}}">{{eachPostField.latestPost.author.name}}</a>
+                        <em>&nbsp;&nbsp;&nbsp;&nbsp;{{eachPostField.latestPost.createdAt}}</em>
+                    </dd>
+                    <dd *ngIf="eachPostField.count<=0">从未</dd>
+                </dl>
+            </div>
+        </div>
+        <div>
+            <div *ngFor="let eachPostField of PostFields.slice(8,12)" class="post_filed_box">
+                <a href="forum?id={{eachPostField.id}}"><img alt="{{eachPostField.name}}" src="{{eachPostField.image}}"/></a>
+                <dl>
+                    <dt><a href="forum?id={{eachPostField.id}}">{{eachPostField.name}}</a></dt>
+                    <dd><em>主题: {{eachPostField.count}}</em>, <em>帖数: {{eachPostField.count}}</em></dd>
+                    <dd *ngIf="eachPostField.count>0">
+                        <a href="/post?id={{eachPostField.latestPost.id}}"
+                           title="{{eachPostField.latestPost.title}}">{{eachPostField.latestPost.title}}</a><br/>
+                        <a href="/profile?id={{eachPostField.latestPost.author.id}}">{{eachPostField.latestPost.author.name}}</a>
+                        <em>&nbsp;&nbsp;&nbsp;&nbsp;{{eachPostField.latestPost.createdAt}}</em>
+                    </dd>
+                    <dd *ngIf="eachPostField.count<=0">从未</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <hr class="featurette-divider"/>
+    <div class="cbm_box">
+        <div class="bm_h"><h4>论坛事务专区</h4></div>
+        <div *ngFor="let eachPostField of PostFields.slice(12,15)" id="post_filed_box">
+            <td>
+                <a href="forum?id={{eachPostField.id}}"><img alt="{{eachPostField.name}}" src="{{eachPostField.image}}"/></a>
+            </td>
+            <td><a href="forum?id={{eachPostField.id}}">{{eachPostField.name}}</a></td>
+            <td><span>帖数: {{eachPostField.count}}</span></td>
+            <td>
+                <div *ngIf="eachPostField.count==0">从未</div>
+            </td>
+        </div>
+    </div>
+    <hr class="featurette-divider"/>
+</div>
+
+<footer class="container">
+    <p class="float-end"><a href="#">回到顶部</a></p>
+    <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>

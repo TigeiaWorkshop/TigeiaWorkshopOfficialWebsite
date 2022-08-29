@@ -1,0 +1,139 @@
+.input_title {
+    display: inline-block;
+}
+
+.warning_messages {
+    color: red;
+    float: right;
+    margin-right: 20px;
+}
+
+.lg_main {
+    background: #f4f4f4;
+    opacity: 80%;
+    width: 400px;
+    border-radius: 5px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .15);
+    margin: 10px auto;
+    padding: 50px 0
+}
+
+.lg_main:hover {
+    opacity: 100%;
+    background: #f4f4f4
+}
+
+.lg_main {
+    box-shadow: none;
+    padding: 20px 0
+}
+
+.lg_main {
+    transition: all .5s ease-in-out;
+    transform: all .5s ease-in-out;
+}
+
+.input_group {
+    width: 340px;
+    color: #666;
+    margin: 0 auto
+}
+
+.input_group a {
+    color: #666
+}
+
+.bm_h, .bm_h h4 {
+    transition: all .4s ease-in-out !important;
+}
+
+.bm_h h4:hover {
+    border-color: #ff855b !important;
+}
+
+.bm_h h4 a {
+    text-decoration: none !important;
+}
+
+#left_container {
+    float: left;
+    margin-bottom: 1em;
+    overflow: hidden;
+    width: 75%;
+}
+
+#right_container {
+    float: right;
+    overflow: hidden;
+    width: 23%;
+}
+
+.container {
+    padding-top: 56px !important;
+}
+
+#pt {
+    background: transparent;
+    border: none;
+    color: #777;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    margin: 15px 0;
+}
+
+#pt a, #pt em {
+    float: left;
+    height: 29px;
+}
+
+#pt em {
+    background: none;
+    line-height: inherit;
+    overflow: hidden;
+    text-align: center;
+    width: 20px;
+}
+
+#input_form {
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+.cbm_box {
+    background-color: #f2f2f2 !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    min-height: 50px;
+}
+
+.element_in_input {
+    margin-bottom: 20px;
+}
+
+#submit_button {
+    background-color: #ff6a9e;
+    background-image: none;
+    background-position: 0 -48px;
+    border: 1px solid #999;
+    border-color: #ff6a9e;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #E5E5E5;
+    color: #FFF !important;
+    cursor: pointer;
+    height: 26px;
+    margin-right: 3px;
+    overflow: hidden;
+    padding: 0 10px;
+    vertical-align: middle;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

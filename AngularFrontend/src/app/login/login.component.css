@@ -1,0 +1,15 @@
+.textinput {
+    height: 38px;
+    line-height: 38px;
+    width: 320px;
+    font-size: 16px;
+    border: 1px solid #DCDCDC;
+    border-radius: 3px;
+    outline: #61cab8;
+    margin: 2px 0 16px;
+    padding: 0 9px
+}
+
+.textinput:focus {
+    border-color: #61cab8
+}

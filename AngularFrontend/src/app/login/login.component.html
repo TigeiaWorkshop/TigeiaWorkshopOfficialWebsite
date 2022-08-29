@@ -1,0 +1,32 @@
+<div id="main" style="width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 100;">
+    <div style="padding-top: 260px; padding-bottom: 300px; width: auto;">
+        <div class="lg_main">
+            <form (submit)="onSubmit()" class="input_group">
+                <p class="input_title">邮箱</p>
+                <p *ngIf="ErrorMessage['email']" class="warning_messages">{{ErrorMessage['email']}}</p>
+                <input [(ngModel)]="LoginData['email']" class="textinput" name="username" type="text"/>
+                <p class="input_title">密码</p>
+                <p *ngIf="ErrorMessage['password']" class="warning_messages">{{ErrorMessage['password']}}</p>
+                <input [(ngModel)]="LoginData['password']" autocomplete="on" class="textinput" name="password" type="password"/>
+                <p class="input_title">验证码</p>
+                <p *ngIf="ErrorMessage['captcha']" class="warning_messages">{{ErrorMessage['captcha']}}</p>
+                <input [(ngModel)]="LoginData['captcha']" class="textinput" name="captcha" style="width: 120px;" type="text"/>
+                <canvas height="43" id="canvas" style="border: 1px solid #ccc; border-radius: 5px;" width="100"></canvas>
+                <button>换一个</button>
+                <div class="cl">
+                    <input checked="checked" type="checkbox"/><a>自动登录</a>
+                    <span class="y">
+                        <a [routerLink]="['/registration']" title="立即注册">立即注册</a>
+                        <a> | </a>
+                        <a [routerLink]="['/forget']" title="找回密码">找回密码</a>
+                    </span>
+                </div>
+                <button class="lg_post" tabindex="1" type="submit" value="true"><strong>登录</strong></button>
+            </form>
+        </div>
+    </div>
+    <div class="cl">
+        <a>缇吉娅工坊</a>
+        <a>用心创造世界</a>
+    </div>
+</div>

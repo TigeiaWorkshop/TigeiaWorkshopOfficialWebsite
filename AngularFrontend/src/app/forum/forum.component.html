@@ -1,0 +1,88 @@
+<app-navigation></app-navigation>
+
+<div class="container">
+    <div id="pt">
+        <a [routerLink]="['/']">论坛首页</a>
+        <em>›</em>
+        <a>{{getFiledCategoryName()}}</a>
+        <em>›</em>
+        <a>{{PostFieldData.name}}</a>
+    </div>
+    <div class="cbm_box">
+        <div style="height: 10em; background-size: cover; background: {{getImage}}"></div>
+        <div class="bm_h">
+            <h4 style="display: inline-block;"><a href="/forum?id={{this.PostFieldData.id}}">{{PostFieldData.name}}</a></h4>
+            <p style="display: inline-block; margin-left: 2%; font-size: small;">今日: 0 主题: 1</p>
+        </div>
+    </div>
+    <div id="left_container">
+        <a href="" id="post_button">发新帖</a>
+        <div class="cbm_box">
+            <table>
+                <tbody>
+                <tr *ngIf="thePosts.length<=0">本版块或指定的范围内尚无主题</tr>
+                <tr *ngFor="let eachPost of thePosts" class="post_box rounded">
+                    <td>
+                        <a href="/profile?id={{eachPost.author.id}}">
+                            <img alt="{{eachPost.author.avatar}}" class="rounded me-2" src="{{eachPost.author.avatar}}"/>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/post?id={{eachPost.id}}"><h4>{{eachPost.title}}</h4></a>
+                        <div>
+                            楼主:&nbsp; <a href="/profile?id={{eachPost.author.id}}">{{eachPost.author.name}}</a>&nbsp;于&nbsp;
+                            <span>{{eachPost.createdAt}}</span>
+                        </div>
+                        <div>
+                            最后发表:&nbsp; <a href="">yoshino_lin</a>&nbsp;于&nbsp;<span>{{eachPost.updatedAt}}</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="cbm_box">
+            <div class="bm_h">
+                <h4>快速发帖</h4>
+            </div>
+
+            <div *ngIf="this.permission_status == 0" class="tedt">
+                您需要登录后才可以发帖
+                <a [routerLink]="['/login']" class="xi2">登录</a> | <a [routerLink]="['/registration']" class="xi2">立即注册</a>
+            </div>
+            <div *ngIf="this.permission_status == 2" class="tedt">
+                抱歉，您没有足够的权限在这里发帖
+            </div>
+            <form (submit)="onSubmit()" *ngIf="this.permission_status == 1" id="input_form">
+                <p *ngIf="ErrorMessage.title">{{ErrorMessage.title}}</p>
+                <input [(ngModel)]="NewPostData.title" class="element_in_input" maxlength="{{MAX_TITLE_LEN}}" name="title"
+                       style="width: 50%; height: 24px;" type="text"/>
+                <span style="margin-left: 10px;"> 还可输入<strong style="color: #5cc762;">{{MAX_TITLE_LEN - NewPostData.title.length}}</strong>个字符 </span>
+                <p *ngIf="ErrorMessage.content" class="element_in_input">{{ErrorMessage.content}}</p>
+                <angular-editor [(ngModel)]="this.NewPostData.content" [config]="config" name="content"></angular-editor>
+                <button class="element_in_input" id="submit_button" type="submit">
+                    <strong>发表帖子</strong>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="cbm_box" id="right_container">
+        <div class="bm_h">
+            <h4><a href="/forum?id={{this.PostFieldData.id}}">最新</a></h4>
+        </div>
+        <ul>
+            <li *ngFor="let eachPost of thePosts" style="list-style-type: none;">
+                <a href="/profile?id={{eachPost.author.id}}" target="_blank" title="{{eachPost.author.name}}">
+                    <img alt="{{eachPost.author.name}}" class="me-2" src="{{eachPost.author.avatar}}"/>
+                </a> <br/>
+                <a href="/post?id={{eachPost.id}}">{{eachPost.title}}</a>
+                <br/>
+                作者: <a href="/profile?id={{eachPost.author.id}}" target="_blank">{{eachPost.author.name}}</a> <br/>
+                版块: <a href="/forum?id={{eachPost.field.id}}" target="_blank">{{eachPost.field.name}}</a> <br/>
+                回复: {{eachPost.comments.length}} <br/>
+                发帖时间: {{eachPost.createdAt}} <br/>
+                最后发表: {{eachPost.updatedAt}}
+            </li>
+        </ul>
+    </div>
+</div>

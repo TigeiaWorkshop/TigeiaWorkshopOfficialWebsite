@@ -1,0 +1,86 @@
+a {
+    color: #333;
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: underline
+}
+
+a,
+a:hover {
+    text-decoration: none
+}
+
+a img {
+    border: none
+}
+
+.y {
+    float: right
+}
+
+.cl:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+}
+
+.cl {
+    zoom: 1
+}
+
+.xg1 {
+    color: #999 !important
+}
+
+.xi1 {
+    color: #f26c4f
+}
+
+.crumb {
+    color: #999;
+    font-size: 12px;
+    line-height: 60px;
+    height: 60px;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    padding: 15px;
+    padding-top: 0
+}
+
+.crumb .y .acpost {
+    margin-left: 10px;
+    padding: 6px 15px
+}
+
+.sd_mkes {
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: 5px
+}
+
+.acpost {
+    background: #78d1c1;
+    color: #fff !important;
+    text-decoration: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
+    vertical-align: middle;
+    border: 0;
+    border-radius: 3px;
+    padding: 3px 8px
+}
+
+.acgi_i {
+    background-color: #62ccbc;
+    font-family: 'Helvetica Neue', sans-serif, Helvetica, Arial;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+    color: #fff;
+    text-decoration: none;
+    cursor: default;
+    display: inline-block;
+    line-height: 18px;
+    border-radius: 2px;
+    padding: 0 5px
+}
