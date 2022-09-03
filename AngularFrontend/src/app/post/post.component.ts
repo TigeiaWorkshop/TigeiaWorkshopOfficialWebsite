@@ -12,7 +12,7 @@ import { AngularEditorConfig } from "@kolkov/angular-editor";
 })
 
 export class PostComponent implements OnInit {
-	PostData: Post = {} as Post;
+	PostData: Post | null = null;
 	UserData: User = {} as User;
 	NewReplyData: Comment = {} as Comment;
 	ErrorMessage = {content: null};
@@ -41,7 +41,6 @@ export class PostComponent implements OnInit {
 				this._httpService.getPost(Number(_postIdTmp)).subscribe(data => {
 					this.PostData = data as Post;
 				});
-
 			}
 		});
 		this._httpService.getCurrentUser().subscribe(data => {
@@ -50,19 +49,29 @@ export class PostComponent implements OnInit {
 	}
 
 	getFiledCategoryName(): string {
-		return get_filed_category_name(this.PostData.field.id);
+		if (this.PostData != null) {
+			return get_filed_category_name(this.PostData.field.id);
+		} else {
+			return "";
+		}
 	}
 
 	onSubmit(): void {
-		this.NewReplyData.author = this.UserData;
-		this.NewReplyData.field = this.PostData.field;
-		this.NewReplyData.post = this.PostData;
-		this._httpService.createComment(this.PostData.id, this.NewReplyData).subscribe(data => {
-			if (data != null) {
-				this.ErrorMessage = data as any;
-			} else {
-				location.reload();
-			}
-		});
+		if (this.PostData != null) {
+			this.NewReplyData.author = this.UserData;
+			this.NewReplyData.field = this.PostData.field;
+			this.NewReplyData.post = this.PostData;
+			this.NewReplyData.post.comments = [];
+			this.NewReplyData.post.author.comments = [];
+			this._httpService.createComment(this.NewReplyData).subscribe({
+				next: () => location.reload(),
+				error: (e) => {
+					this.ErrorMessage = e as any;
+					console.log(e);
+				},
+				complete: () => console.info('complete')
+			});
+			this.NewReplyData = {} as Comment;
+		}
 	}
 }

@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using NETCoreBackend.Models;
 using NETCoreBackend.Modules;
@@ -21,23 +19,9 @@ public class UsersController : ControllerBase
 
     private readonly UsersService _usersService;
 
-    public UsersController(UsersService usersService)
+    public UsersController(DatabaseContext db)
     {
-        this._usersService = usersService;
-    }
-
-    private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-    {
-        using HMACSHA512 hmac = new();
-        passwordSalt = hmac.Key;
-        passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-    }
-
-    private static bool VerifyPasswordHash(string password, IEnumerable<byte> passwordHash, byte[] passwordSalt)
-    {
-        using HMACSHA512 hmac = new(passwordSalt);
-        byte[] computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-        return computeHash.SequenceEqual(passwordHash);
+        this._usersService = new UsersService(db);
     }
 
     [HttpGet("current")]
@@ -96,7 +80,7 @@ public class UsersController : ControllerBase
         }
 
         // ensure the Date is not in the future
-        if (DateTime.Compare(newUser.Birthday, DateTime.Today) > 0)
+        if (newUser.Birthday.CompareTo(DateTime.Today) > 0)
         {
             return this.Conflict("Birthday");
         }
@@ -104,7 +88,7 @@ public class UsersController : ControllerBase
         newUser.Birthday = DateTime.SpecifyKind(newUser.Birthday, DateTimeKind.Utc);
 
         // hashing the password
-        CreatePasswordHash(newUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+        Authentications.CreatePasswordHash(newUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
         newUser.PasswordHash = passwordHash;
         newUser.PasswordSalt = passwordSalt;
 
@@ -129,12 +113,12 @@ public class UsersController : ControllerBase
         }
 
         // whether the password is correct
-        if (!VerifyPasswordHash(userThatLogin.Password, theUserData.PasswordHash, theUserData.PasswordSalt))
+        if (!Authentications.VerifyPasswordHash(userThatLogin.Password, theUserData.PasswordHash, theUserData.PasswordSalt))
         {
             return this.Ok(new { accepted = false, password = "password_incorrect" });
         }
 
-        theUserData.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+        theUserData.UpdatedAt = DateTime.UtcNow;
 
         await this._usersService.SaveChangesAsync();
 

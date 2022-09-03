@@ -15,6 +15,8 @@ public class DatabaseContext : DbContext
 
     public DbSet<PostField> PostFields { get; set; }
 
+    public DbSet<Comment> Comments { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseSerialColumns();

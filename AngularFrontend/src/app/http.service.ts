@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { TokenService } from "./token.service";
-import { PostField } from "../utilities/Models";
+import { Comment, Post, PostField } from "../utilities/Models";
 
 @Injectable({
 	providedIn: 'root'
@@ -68,7 +68,7 @@ export class HttpService {
 
 	//获取所有版块的信息
 	getPostFields() {
-		return this._http.get("/api/postFields/all");
+		return this._http.get("/api/postFields/get/all");
 	}
 
 	//获取特定版块的信息
@@ -77,7 +77,7 @@ export class HttpService {
 	}
 
 	//发帖
-	createPost(data: any) {
+	createPost(data: Post) {
 		return this._http.post(`/api/posts/new`, data);
 	}
 
@@ -100,8 +100,8 @@ export class HttpService {
 	}
 
 	//发表回复
-	createComment(id: number, data: any) {
-		return this._http.post(`/api/posts/comment/new/${id}`, data);
+	createComment(data: Comment) {
+		return this._http.post(`/api/comments/new`, data);
 	}
 
 	//上传单个文件

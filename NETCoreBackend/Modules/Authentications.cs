@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
@@ -34,5 +35,19 @@ public sealed class Authentications
     {
         string theTokenString = theRequest.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
         return new JwtSecurityTokenHandler().ReadJwtToken(theTokenString);
+    }
+
+    public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+    {
+        using HMACSHA512 hmac = new();
+        passwordSalt = hmac.Key;
+        passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+    }
+
+    public static bool VerifyPasswordHash(string password, IEnumerable<byte> passwordHash, byte[] passwordSalt)
+    {
+        using HMACSHA512 hmac = new(passwordSalt);
+        byte[] computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+        return computeHash.SequenceEqual(passwordHash);
     }
 }

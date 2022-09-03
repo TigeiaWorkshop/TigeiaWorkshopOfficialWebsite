@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NETCoreBackend.Models;
+using NETCoreBackend.Modules;
 using NETCoreBackend.Services;
 
 namespace NETCoreBackend.Controllers;
@@ -10,9 +11,9 @@ public class PostsController : ControllerBase
 {
     private readonly PostsService _postsService;
 
-    public PostsController(PostsService postsService)
+    public PostsController(DatabaseContext db)
     {
-        this._postsService = postsService;
+        this._postsService = new PostsService(db);
     }
 
     [HttpGet("count/{field:int}")]
@@ -63,25 +64,6 @@ public class PostsController : ControllerBase
         }
 
         return this.Conflict();
-    }
-
-    [HttpPost("comment/new/{id:int}")]
-    public async Task<IActionResult> NewComment(int id, Comment newComment)
-    {
-        Post? post = await this._postsService.GetAsync(id);
-
-        if (post is null)
-        {
-            return this.NotFound();
-        }
-
-        post.Comments.Add(newComment);
-
-        post.UpdatedAt = DateTime.Now;
-
-        await this._postsService.SaveChangesAsync();
-
-        return this.Accepted();
     }
 
     [HttpDelete("delete/{id:int}")]

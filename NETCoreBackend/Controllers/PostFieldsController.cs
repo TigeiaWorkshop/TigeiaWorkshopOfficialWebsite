@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NETCoreBackend.Models;
+using NETCoreBackend.Modules;
 using NETCoreBackend.Services;
 
 namespace NETCoreBackend.Controllers;
@@ -10,12 +11,12 @@ public class PostFieldsController : ControllerBase
 {
     private readonly PostFieldsService _postFieldsService;
 
-    public PostFieldsController(PostFieldsService postFieldsService)
+    public PostFieldsController(DatabaseContext db)
     {
-        this._postFieldsService = postFieldsService;
+        this._postFieldsService = new PostFieldsService(db);
     }
 
-    [HttpGet("all")]
+    [HttpGet("get/all")]
     public async Task<List<PostField>> Get()
     {
         return await this._postFieldsService.GetAsync();

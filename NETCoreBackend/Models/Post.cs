@@ -24,7 +24,7 @@ public class Post : AbstractModel
 
     [Required]
     [Display(Name = "comments")]
-    public List<Comment> Comments { get; set; } = new();
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     [Required]
     [Display(Name = "permission")]

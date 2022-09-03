@@ -1,6 +1,6 @@
 <app-navigation></app-navigation>
 
-<div class="container">
+<div *ngIf="this.PostData != null" class="container">
     <div id="pt">
         <a [routerLink]="['/']">论坛首页</a>
         <em>›</em><a>{{getFiledCategoryName()}}</a><em>›</em>

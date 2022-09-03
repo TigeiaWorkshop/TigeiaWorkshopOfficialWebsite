@@ -8,6 +8,7 @@ export interface User {
 	registerIp: string;
 	loginIp: string;
 	friends: Array<User>;
+	comments: Array<Comment>;
 	credits: number;
 	money: number;
 	exp: number;

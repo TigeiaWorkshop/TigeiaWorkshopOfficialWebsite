@@ -3,27 +3,25 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NETCoreBackend.Modules;
-using NETCoreBackend.Services;
 using Newtonsoft.Json;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add database context to the container.
 builder.Services.AddDbContext<DatabaseContext>(
     options =>
         options.UseNpgsql(builder.Configuration.GetSection("Database").GetSection("Connection").Value)
 );
+
 // Using NewtonsoftJson to handle object cycle for include method
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
     );
 
-builder.Services.AddSingleton<UsersService>();
-builder.Services.AddSingleton<PostFieldsService>();
-builder.Services.AddSingleton<PostsService>();
-
+// Add controllers to the container.
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

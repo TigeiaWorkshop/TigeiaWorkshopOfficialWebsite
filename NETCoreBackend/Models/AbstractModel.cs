@@ -9,9 +9,9 @@ public abstract class AbstractModel
 
     [Required]
     [Display(Name = "createdAt")]
-    public DateTime CreatedAt { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     [Required]
     [Display(Name = "updatedAt")]
-    public DateTime UpdatedAt { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

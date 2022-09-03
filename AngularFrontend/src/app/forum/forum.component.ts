@@ -66,7 +66,6 @@ export class ForumComponent implements OnInit {
 				});
 				this._httpService.getPosts(_id).subscribe(data => {
 					this.thePosts = data as Array<Post>;
-					console.log(this.thePosts);
 				});
 			}
 		});
@@ -77,7 +76,11 @@ export class ForumComponent implements OnInit {
 	}
 
 	getImage() {
-		return `url(/assets/image/blocks/icon_${this.PostFieldData.id}.jpg) no-repeat center center;`;
+		if (this.PostFieldData.id != null) {
+			return `background: url(/assets/image/blocks/icon_${this.PostFieldData.id}.jpg) no-repeat center center;`;
+		} else {
+			return "";
+		}
 	}
 
 	onSubmit(): void {
@@ -87,7 +90,7 @@ export class ForumComponent implements OnInit {
 			if (data.status == "error") {
 				this.ErrorMessage = data;
 			} else {
-				this._router.navigate(['/post'], {queryParams: {field: this.PostFieldData.id, post: data.id}}).then(r => console.log(r));
+				this._router.navigate(['/post'], {queryParams: {id: data.id}}).then(r => console.log(r));
 			}
 		});
 	}
