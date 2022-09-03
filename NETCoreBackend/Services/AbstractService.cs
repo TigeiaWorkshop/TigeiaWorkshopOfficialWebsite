@@ -48,7 +48,7 @@ public abstract class AbstractService<T> where T : AbstractModel
         return await this.GetDatabaseCollection().FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<T?> GetByExpressionAsync(Expression<Func<T, bool>> predicate)
+    protected async Task<T?> GetByExpressionAsync(Expression<Func<T, bool>> predicate)
     {
         return await this.GetDatabaseCollection().FirstOrDefaultAsync(predicate);
     }

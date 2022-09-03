@@ -7,7 +7,7 @@ public class Post : AbstractModel
 {
     [Required]
     [Display(Name = "field")]
-    public PostField Field { get; set; }
+    public PostField Field { get; set; } = null!;
 
     [Required]
     [Display(Name = "title")]
@@ -20,7 +20,7 @@ public class Post : AbstractModel
 
     [Required]
     [Display(Name = "author")]
-    public User Author { get; set; }
+    public User Author { get; set; } = null!;
 
     [Required]
     [Display(Name = "comments")]

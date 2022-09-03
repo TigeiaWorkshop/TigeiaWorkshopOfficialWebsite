@@ -37,16 +37,20 @@ export class LoginComponent implements OnInit {
 					this.ErrorMessage[key] = value;
 				});
 			} else {
-				this._httpService.loginUser(this.LoginData).subscribe((data: any) => {
-					if (data.accepted == true) {
-						this._token.set(data.token);
-						this._httpService.gotoHomePage();
-						this.resetLoginData();
-					} else {
-						Object.entries(data).forEach(
-							([key, value]) => this.ErrorMessage[key] = LoginValidation.getMessage(value as string)
-						);
-					}
+				this._httpService.loginUser(this.LoginData).subscribe({
+					next: (data: any) => {
+						if (data.accepted == true) {
+							this._token.set(data.token);
+							this._httpService.gotoHomePage();
+							this.resetLoginData();
+						} else {
+							Object.entries(data).forEach(
+								([key, value]) => this.ErrorMessage[key] = LoginValidation.getMessage(value as string)
+							);
+						}
+					},
+					error: (e) => console.log(e),
+					complete: () => console.info('complete')
 				});
 			}
 		});

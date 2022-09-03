@@ -32,6 +32,9 @@ export class HomeComponent implements OnInit {
 				}
 			);
 		});
+		this._httpService.getLatestOfficialPosts(5).subscribe(data => {
+			this.FrontCovers = data as Array<Post>;
+		});
 	}
 
 	getBoxTextPos(index: number): string {

@@ -89,8 +89,8 @@ public class UsersController : ControllerBase
 
         // hashing the password
         Authentications.CreatePasswordHash(newUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
-        newUser.PasswordHash = passwordHash;
-        newUser.PasswordSalt = passwordSalt;
+        newUser.Confidential.PasswordHash = passwordHash;
+        newUser.Confidential.PasswordSalt = passwordSalt;
 
         // set Login Ip as Register Ip
         newUser.LoginIp = newUser.RegisterIp;
@@ -104,7 +104,7 @@ public class UsersController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(User userThatLogin)
     {
-        User? theUserData = await this._usersService.GetByEmailAsync(userThatLogin.Email);
+        User? theUserData = await this._usersService.GetWithConfidential(userThatLogin.Email);
 
         // ensure that the user exists
         if (theUserData == null)
@@ -113,7 +113,7 @@ public class UsersController : ControllerBase
         }
 
         // whether the password is correct
-        if (!Authentications.VerifyPasswordHash(userThatLogin.Password, theUserData.PasswordHash, theUserData.PasswordSalt))
+        if (!Authentications.VerifyPasswordHash(userThatLogin.Password, theUserData.Confidential))
         {
             return this.Ok(new { accepted = false, password = "password_incorrect" });
         }

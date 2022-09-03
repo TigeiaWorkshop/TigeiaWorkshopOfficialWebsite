@@ -13,10 +13,9 @@
                 </li>
             </ul>
             <div *ngIf="UserData.id==null" class="login">
-                <a [routerLink]="['/login']" title="登录"><strong>登录</strong></a>
+                <a (click)="logOff()" [routerLink]="['/login']" title="登录"><strong>登录</strong></a>
                 <strong> | </strong>
-                <a [routerLink]="['/registration']" title="注册"><strong>注册</strong></a>
-                <a (click)="logOff()" [routerLink]="['/']" hidden><strong>注销</strong></a>
+                <a (click)="logOff()" [routerLink]="['/registration']" title="注册"><strong>注册</strong></a>
             </div>
             <ul *ngIf="UserData.id!=null" class="navbar-nav">
                 <li class="nav-item dropdown">

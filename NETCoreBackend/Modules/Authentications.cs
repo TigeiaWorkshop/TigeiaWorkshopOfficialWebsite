@@ -8,7 +8,7 @@ using NETCoreBackend.Models;
 
 namespace NETCoreBackend.Modules;
 
-public sealed class Authentications
+public static class Authentications
 {
     private const string TOKEN =
         "EEQMcmb1D/3C0medg2v+uuEJ6a7bz+q0L0/da1AUSzcqVY8OgqxzMLn8kLwK4unFFjAmfzMxBLe2eDWe4GGcYg==";
@@ -44,10 +44,10 @@ public sealed class Authentications
         passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
     }
 
-    public static bool VerifyPasswordHash(string password, IEnumerable<byte> passwordHash, byte[] passwordSalt)
+    public static bool VerifyPasswordHash(string password, Confidential confidential)
     {
-        using HMACSHA512 hmac = new(passwordSalt);
+        using HMACSHA512 hmac = new(confidential.PasswordSalt);
         byte[] computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-        return computeHash.SequenceEqual(passwordHash);
+        return computeHash.SequenceEqual(confidential.PasswordHash);
     }
 }

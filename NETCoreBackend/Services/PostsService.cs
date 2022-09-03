@@ -7,21 +7,37 @@ namespace NETCoreBackend.Services;
 
 public class PostsService : AbstractService<Post>
 {
+    private const int MAX_POSTS = 100;
+
     public PostsService(DatabaseContext db) : base(db, db.Posts)
     {
     }
 
-    public async Task<long> CountAsync(int field)
+    public async Task<List<Post>> GetListAsync(int field, int num)
     {
-        return await base.CountAsync(x => x.Field.Id == field);
-    }
+        if (num > MAX_POSTS)
+        {
+            num = MAX_POSTS;
+        }
 
-    public async Task<List<Post>> GetAllAsync(int field)
-    {
         return await this.GetDatabaseCollection()
             .Where(x => x.Field.Id == field)
             .Include(m => m.Author)
+            .Take(num)
             .ToListAsync();
+    }
+
+    public async Task<List<Post>> GetOfficialLatestAsync(int num)
+    {
+        if (num > MAX_POSTS)
+        {
+            num = MAX_POSTS;
+        }
+
+        return await this.GetDatabaseCollection()
+            .Where(x => x.Field.Id <= 3)
+            .OrderByDescending(p => p.Id)
+            .Take(num).ToListAsync();
     }
 
     public async Task<Post?> GetLatestAsync(int field)
@@ -31,7 +47,7 @@ public class PostsService : AbstractService<Post>
             .FirstOrDefaultAsync(x => x.Field.Id == field);
     }
 
-    public new async Task<Post?> GetAsync(int id)
+    public async Task<Post?> GetCompleteAsync(int id)
     {
         return await this.GetDatabaseCollection()
             .Include(m => m.Author)

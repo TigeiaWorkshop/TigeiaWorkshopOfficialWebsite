@@ -12,7 +12,7 @@
                 <span class="xg1">查看: </span>
                 <span class="xi1">126</span>
                 <span class="xg1"> | 回复: </span>
-                <span class="xi1">0</span>
+                <span class="xi1">{{PostData.comments.length}}</span>
                 <div class="y"><a class="acpost">本版发帖</a><a class="acpost">回复</a></div>
             </div>
             <h1>{{PostData.title}}</h1>
@@ -56,7 +56,7 @@
             <a class="acpost">返回列表</a>
             <a class="acpost" style="float: right;">回到顶部</a>
         </div>
-        <form (submit)="onSubmit()" class="cbm_box" id="input_form">
+        <form (ngSubmit)="onSubmit()" class="cbm_box" id="input_form">
             <p *ngIf="this.ErrorMessage.content!=null" class="element_in_input">{{this.ErrorMessage.content}}</p>
             <angular-editor [(ngModel)]="this.NewReplyData.content" [config]="config" name="content"></angular-editor>
             <button class="element_in_input" id="submit_button" type="submit">

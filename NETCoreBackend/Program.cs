@@ -10,7 +10,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add database context to the container.
 builder.Services.AddDbContext<DatabaseContext>(
     options =>
-        options.UseNpgsql(builder.Configuration.GetSection("Database").GetSection("Connection").Value)
+        options
+            .UseNpgsql(builder.Configuration.GetSection("Database").GetSection("Connection").Value)
+    //.EnableSensitiveDataLogging()
 );
 
 // Using NewtonsoftJson to handle object cycle for include method

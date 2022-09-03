@@ -1,4 +1,5 @@
-﻿using NETCoreBackend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using NETCoreBackend.Models;
 using NETCoreBackend.Modules;
 
 namespace NETCoreBackend.Services;
@@ -9,8 +10,10 @@ public class UsersService : AbstractService<User>
     {
     }
 
-    public async Task<User?> GetByEmailAsync(string email)
+    public async Task<User?> GetWithConfidential(string email)
     {
-        return await this.GetByExpressionAsync(x => x.Email == email);
+        return await this.GetDatabaseCollection()
+            .Include(m => m.Confidential)
+            .FirstOrDefaultAsync(x => x.Email == email);
     }
 }

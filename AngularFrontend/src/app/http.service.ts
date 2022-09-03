@@ -82,21 +82,32 @@ export class HttpService {
 	}
 
 	//获取对应帖子信息
-	getPost(id: number) {
-		return this._http.get(`/api/posts/get/${id}`);
+	getPost(id: number, complete: boolean = false) {
+		if (!complete) {
+			return this._http.get(`/api/posts/get/${id}`);
+		} else {
+			return this._http.get(`/api/posts/get/complete/${id}`);
+		}
 	}
 
+	//获取帖子总数
 	getPostsNum(field: number) {
 		return this._http.get(`/api/posts/count/${field}`);
 	}
 
+	//获取最新的帖子
 	getLatestPosts(field: number) {
 		return this._http.get(`/api/posts/get/latest/${field}`);
 	}
 
 	//获取对应帖子信息
-	getPosts(field: number) {
-		return this._http.get(`/api/posts/get/all/${field}`);
+	getPosts(field: number, num: number) {
+		return this._http.get(`/api/posts/get/list/${field}/${num}`);
+	}
+
+	//获取最新官方贴
+	getLatestOfficialPosts(num: number) {
+		return this._http.get(`/api/posts/get/list/official/${num}`);
 	}
 
 	//发表回复

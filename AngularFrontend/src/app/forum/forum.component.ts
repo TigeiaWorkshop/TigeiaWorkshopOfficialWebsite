@@ -64,7 +64,7 @@ export class ForumComponent implements OnInit {
 						}
 					});
 				});
-				this._httpService.getPosts(_id).subscribe(data => {
+				this._httpService.getPosts(_id, 10).subscribe(data => {
 					this.thePosts = data as Array<Post>;
 				});
 			}

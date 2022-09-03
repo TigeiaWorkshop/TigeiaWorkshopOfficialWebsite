@@ -38,7 +38,7 @@ export class PostComponent implements OnInit {
 		this._route.queryParamMap.subscribe(params => {
 			const _postIdTmp = params.get("id");
 			if (_postIdTmp != null) {
-				this._httpService.getPost(Number(_postIdTmp)).subscribe(data => {
+				this._httpService.getPost(Number(_postIdTmp), true).subscribe(data => {
 					this.PostData = data as Post;
 				});
 			}
@@ -60,18 +60,22 @@ export class PostComponent implements OnInit {
 		if (this.PostData != null) {
 			this.NewReplyData.author = this.UserData;
 			this.NewReplyData.field = this.PostData.field;
-			this.NewReplyData.post = this.PostData;
+			this.NewReplyData.post = Object.assign({}, this.PostData);
 			this.NewReplyData.post.comments = [];
 			this.NewReplyData.post.author.comments = [];
 			this._httpService.createComment(this.NewReplyData).subscribe({
-				next: () => location.reload(),
+				next: () => {
+					if (this.PostData != null) {
+						this.PostData.comments.push(this.NewReplyData);
+						this.NewReplyData = {} as Comment;
+					}
+				},
 				error: (e) => {
 					this.ErrorMessage = e as any;
 					console.log(e);
 				},
 				complete: () => console.info('complete')
 			});
-			this.NewReplyData = {} as Comment;
 		}
 	}
 }

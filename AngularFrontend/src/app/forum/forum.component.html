@@ -53,7 +53,7 @@
             <div *ngIf="this.permission_status == 2" class="tedt">
                 抱歉，您没有足够的权限在这里发帖
             </div>
-            <form (submit)="onSubmit()" *ngIf="this.permission_status == 1" id="input_form">
+            <form (ngSubmit)="onSubmit()" *ngIf="this.permission_status == 1" id="input_form">
                 <p *ngIf="ErrorMessage.title">{{ErrorMessage.title}}</p>
                 <input [(ngModel)]="NewPostData.title" class="element_in_input" maxlength="{{MAX_TITLE_LEN}}" name="title"
                        style="width: 50%; height: 24px;" type="text"/>

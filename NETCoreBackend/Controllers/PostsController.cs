@@ -19,7 +19,7 @@ public class PostsController : ControllerBase
     [HttpGet("count/{field:int}")]
     public async Task<ActionResult<long>> Count(int field)
     {
-        return await this._postsService.CountAsync(field);
+        return await this._postsService.CountAsync(x => x.Field.Id == field);
     }
 
     [HttpGet("get/latest/{field:int}")]
@@ -35,10 +35,29 @@ public class PostsController : ControllerBase
         return post;
     }
 
-    [HttpGet("get/all/{field:int}")]
-    public async Task<List<Post>> GetAll(int field)
+    [HttpGet("get/list/official/{num:int}")]
+    public async Task<List<Post>> GetOfficialLatest(int num)
     {
-        return await this._postsService.GetAllAsync(field);
+        return await this._postsService.GetOfficialLatestAsync(num);
+    }
+
+    [HttpGet("get/list/{field:int}/{num:int}")]
+    public async Task<List<Post>> GetList(int field, int num)
+    {
+        return await this._postsService.GetListAsync(field, num);
+    }
+
+    [HttpGet("get/complete/{id:int}")]
+    public async Task<ActionResult<Post>> GetComplete(int id)
+    {
+        Post? post = await this._postsService.GetCompleteAsync(id);
+
+        if (post is null)
+        {
+            return this.NotFound();
+        }
+
+        return post;
     }
 
     [HttpGet("get/{id:int}")]

@@ -5,21 +5,12 @@ namespace NETCoreBackend.Models;
 
 public class User : AbstractModel
 {
-    [Required]
     [Display(Name = "name")]
     public string Name { get; set; } = string.Empty;
 
     [Required]
     [Display(Name = "email")]
     public string Email { get; set; } = string.Empty;
-
-    [Required]
-    [Display(Name = "passwordHash")]
-    public byte[] PasswordHash { get; set; } = Array.Empty<byte>();
-
-    [Required]
-    [Display(Name = "passwordSalt")]
-    public byte[] PasswordSalt { get; set; } = Array.Empty<byte>();
 
     [Required]
     [Display(Name = "birthday")]
@@ -37,7 +28,6 @@ public class User : AbstractModel
     [Display(Name = "comments")]
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-    [Required]
     [Display(Name = "registerIp")]
     public string RegisterIp { get; set; } = string.Empty;
 
@@ -72,4 +62,6 @@ public class User : AbstractModel
     [NotMapped]
     [Display(Name = "password")]
     public string Password { get; set; } = string.Empty;
+
+    public Confidential Confidential { get; set; } = null!;
 }
