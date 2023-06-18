@@ -1,0 +1,44 @@
+.carousel {
+    margin-bottom: 4rem
+}
+
+.carousel-item {
+    height: 32rem
+}
+
+
+.featurette-divider {
+    margin: 3rem 0
+}
+
+.bm_h {
+    height: 10%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: #F2F2F2;
+    line-height: 10%;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 2.5%;
+    margin-bottom: 2%;
+}
+
+.bm_h h4 {
+    padding-left: 10px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    border-left: 6px solid #61cab8;
+    margin: 13px 0
+}
+
+.post_filed_box {
+    width: 20%;
+    display: inline-block;
+    margin-left: 5%;
+}
+
+#post_filed_box {
+    margin-left: 5%;
+    margin-bottom: 2.5%;
+}

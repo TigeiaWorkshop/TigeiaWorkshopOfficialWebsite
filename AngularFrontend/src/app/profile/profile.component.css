@@ -1,0 +1,52 @@
+
+.bg-purple {
+    background-color: #6f42c1;
+}
+
+.pb-3 {
+    width: 33%;
+}
+
+#avatar {
+    width: 20%;
+    height: 20%;
+    margin-right: 2%;
+    position: relative;
+}
+
+#avatar img {
+    margin-top: 0;
+    margin-left: 0;
+    max-width: 100%;
+    max-height: 100%;
+    outline: white solid 2px;
+}
+
+#avatar button {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+    color: lightgray;
+    border: none;
+    opacity: 0;
+    transition: all .2s ease-in-out;
+}
+
+#avatar button:hover {
+    opacity: 1
+}
+
+#avatar i {
+    font-size: 200%;
+}
+
+.pb-3 i {
+    font-size: 200%;
+    display: inline-block;
+    margin-right: 1rem;
+}

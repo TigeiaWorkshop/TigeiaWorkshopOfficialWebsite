@@ -1,0 +1,11 @@
+.textinput_l {
+    margin: 2px 0 14px;
+    padding: 0 9px;
+    height: 30px;
+    line-height: 30px;
+    width: 320px;
+    font-size: 14px;
+    border: 1px solid #DCDCDC;
+    border-radius: 3px;
+    outline: #61cab8;
+}
